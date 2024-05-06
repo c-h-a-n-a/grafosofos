@@ -1,0 +1,15 @@
+<div class="flex justify-between">
+    <!-- Left Navigation Component -->
+    <app-left-nav-bar-hover (topicSelected)="handleTopicSelected($event)" class="w-1/8  p-4 pl-10 left-section"></app-left-nav-bar-hover>
+  
+    <!-- Content Component -->
+    <app-lesson1 *ngIf="selectedLesson === 'lesson-1'" class="w-1/2 p-4 mx-4"></app-lesson1>
+    <app-lesson2 *ngIf="selectedLesson === 'lesson-2'" class="w-1/2 p-4 mx-4"></app-lesson2>
+    <app-lesson3 *ngIf="selectedLesson === 'lesson-3'" class="w-1/2 p-4 mx-4"></app-lesson3>
+    <app-lesson4 *ngIf="selectedLesson === 'lesson-4'" class="w-1/2 p-4 mx-4"></app-lesson4>
+   
+
+    <section class="w-1/6  p-4">
+      
+    </section>
+  </div>

@@ -1,0 +1,26 @@
+.left-section {
+    position: sticky;
+    top: 0;
+    height: 100vh; /* Adjust the height as needed */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+  }
+
+  .scroll-to-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none; /* Initially hidden */
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .scroll-to-top-btn:hover {
+    background-color: #0056b3;
+  }
+  
