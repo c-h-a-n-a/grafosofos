@@ -16,8 +16,8 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 export class Lesson1Component {
 
   constructor(private topicService: TopicListService) {
-    const lessonTitle = 'Lesson Title for Lesson 1';
-    const topics = ['Topic 4', 'Topic 5', 'Topic 6']; 
+    const lessonTitle = 'Campus Journalism';
+    const topics = ['What is Campus Journalism?', 'The importance of Campus Journalism', 'Quiz']; 
     this.topicService.updateTopicNames(lessonTitle, topics);
   }
 
