@@ -1,0 +1,13 @@
+/* Inside your sidebar component CSS */
+.sidebar {
+    display: none;
+  }
+  .sidebar.open {
+    display: block;
+  }
+  @media (min-width: 640px) {
+    .sidebar {
+      display: block;
+    }
+  }
+  

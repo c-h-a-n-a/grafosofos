@@ -10,4 +10,14 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class NavBarComponent {
 
+  isSidebarOpen = false;
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+      sidebar.classList.toggle('open', this.isSidebarOpen);
+    }
+  }
+
 }

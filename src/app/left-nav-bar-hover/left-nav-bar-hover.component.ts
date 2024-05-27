@@ -1,15 +1,15 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Inject, OnInit, Output, PLATFORM_ID } from '@angular/core';
 import { TopicListService } from '../topic-list.service';
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor, NgIf, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-left-nav-bar-hover',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, NgClass, NgIf],
   templateUrl: './left-nav-bar-hover.component.html',
   styleUrl: './left-nav-bar-hover.component.css'
 })
-export class LeftNavBarHoverComponent {
+export class LeftNavBarHoverComponent implements OnInit{
 
   //@Output() sectionSelected: EventEmitter<string> = new EventEmitter<string>();
 
@@ -20,6 +20,19 @@ export class LeftNavBarHoverComponent {
   }
 */
 
+
+// Inside your LeftNavBarHoverComponent class
+isSidebarOpen = false;
+
+toggleSidebar() {
+  this.isSidebarOpen = !this.isSidebarOpen;
+  const sidebar = document.querySelector('.sidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('open', this.isSidebarOpen);
+  }
+}
+
+
 @Output() topicSelected: EventEmitter<string> = new EventEmitter<string>();
 
   selectTopic(topic: string) {
@@ -29,13 +42,16 @@ export class LeftNavBarHoverComponent {
   lessonTitle!: string;
   topicNames!: string[];
 
-  constructor(private topicService: TopicListService) {}
+  constructor(private topicService: TopicListService ) {}
 
   ngOnInit() {
     this.topicService.topicNames$.subscribe(topicNames => {
       this.lessonTitle = topicNames.title;
       this.topicNames = topicNames.topics;
+      
     });
   }
+
+ 
 
 }
