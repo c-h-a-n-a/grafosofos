@@ -8,12 +8,13 @@ import { Lesson1Component } from '../lesson1/lesson1.component';
 import { Lesson2Component } from '../lesson2/lesson2.component';
 import { Lesson3Component } from '../lesson3/lesson3.component';
 import { Lesson4Component } from '../lesson4/lesson4.component';
+import { Lesson5ComponentComponent } from '../lesson5-component/lesson5-component.component';
 
 @Component({
   selector: 'app-lesson-page',
   standalone: true,
   imports: [LeftNavBarHoverComponent, CommonModule, LessonsComponent, Lesson1Component, 
-    Lesson2Component, Lesson3Component, Lesson4Component
+    Lesson2Component, Lesson3Component, Lesson4Component, Lesson5ComponentComponent
   ],
   templateUrl: './lesson-page.component.html',
   styleUrl: './lesson-page.component.css'
