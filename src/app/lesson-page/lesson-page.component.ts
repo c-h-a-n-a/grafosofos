@@ -38,6 +38,7 @@ export class LessonPageComponent implements OnInit{
       const pageTitle = `Lesson | ${lessonId}`;
       this.titleService.setTitle(pageTitle);
       this.selectedLesson = lessonId;
+      this.scrollToTop(); // Scroll to top when navigating to a new lesson
     });
   }
 
@@ -60,6 +61,7 @@ export class LessonPageComponent implements OnInit{
         }, 300); // Delay to ensure smooth scroll has completed
       }
     }
+
     if (!this.isLargeScreen) {
       this.isSidebarOpen = false; // Close the sidebar on mobile after selection
     }
@@ -67,6 +69,12 @@ export class LessonPageComponent implements OnInit{
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  scrollToTop() {
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   @HostListener('window:resize', ['$event'])
