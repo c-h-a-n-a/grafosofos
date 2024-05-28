@@ -15,7 +15,7 @@ export class Lesson4Component {
 
   constructor(private topicService: TopicListService) {
     const lessonTitle = 'RULES IN WRITING ';
-    const topics = ['GRAMMAR IN JOURNALISTIC WRITING', 'WHAT ARE THE DIFFERENT RULES OF GRAMMAR IN NEWS WRITING?', '•	Be mindful of tenses to use', '•	Use of nouns. ', '•	Singularity and Plurality', 'Quiz']; 
+    const topics = ['Grammar in Journalistic Writing', 'What are the Different Rules of Grammar in News Writing?', '•	Be mindful of tenses to use', '•	Use of nouns. ', '•	Singularity and Plurality', 'Quiz']; 
     this.topicService.updateTopicNames(lessonTitle, topics);
   }
 
