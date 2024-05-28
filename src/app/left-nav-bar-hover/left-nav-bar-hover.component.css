@@ -10,4 +10,12 @@
       display: block;
     }
   }
+
+  /* CSS for scrollable navigation bar */
+:host {
+  display: block;
+  max-height: 100vh; /* Full viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
   
