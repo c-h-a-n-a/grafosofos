@@ -14,8 +14,8 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 export class Lesson4Component {
 
   constructor(private topicService: TopicListService) {
-    const lessonTitle = 'Lesson Title for Lesson 4';
-    const topics = ['Topic W', 'Topic X', 'Topic Y', 'Topic Z']; 
+    const lessonTitle = 'RULES IN WRITING ';
+    const topics = ['GRAMMAR IN JOURNALISTIC WRITING', 'WHAT ARE THE DIFFERENT RULES OF GRAMMAR IN NEWS WRITING?', '•	Be mindful of tenses to use', '•	Use of nouns. ', '•	Singularity and Plurality', 'Quiz']; 
     this.topicService.updateTopicNames(lessonTitle, topics);
   }
 

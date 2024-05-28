@@ -55,7 +55,7 @@ export class LessonPageComponent implements OnInit{
       if (!this.isLargeScreen) {
         // Adjust scroll position for small screens
         setTimeout(() => {
-          const yOffset = -50; // Adjust the offset as needed
+          const yOffset = -70; // Adjust the offset as needed
           const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
           window.scrollTo({ top: y, behavior: 'smooth' });
         }, 300); // Delay to ensure smooth scroll has completed

@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   height: 100vh; /* Adjust the height as needed */
-  overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+  /*overflow-y: visible; /* Enable vertical scrolling if content exceeds the height */
 }
 
 .scroll-to-top-btn {
