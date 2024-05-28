@@ -50,6 +50,18 @@ export class LessonPageComponent implements OnInit{
     const targetSection = document.getElementById(topic);
     if (targetSection) {
       targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      if (!this.isLargeScreen) {
+        // Adjust scroll position for small screens
+        setTimeout(() => {
+          const yOffset = -50; // Adjust the offset as needed
+          const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }, 300); // Delay to ensure smooth scroll has completed
+      }
+    }
+    if (!this.isLargeScreen) {
+      this.isSidebarOpen = false; // Close the sidebar on mobile after selection
     }
   }
 
