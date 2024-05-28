@@ -1,15 +1,29 @@
-<div class="flex justify-between">
+<div class="flex flex-col sm:flex-row justify-between">
+
+  <!-- Hamburger Icon for Mobile View -->
+  <div class="sm:hidden p-4">
+    <button (click)="toggleSidebar()" class="text-gray-700 focus:outline-none">
+      <!-- Hamburger Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+  </div>
+
     <!-- Left Navigation Component -->
-    <app-left-nav-bar-hover (topicSelected)="handleTopicSelected($event)" class="w-1/8  p-4 pl-10 left-section"></app-left-nav-bar-hover>
+    <app-left-nav-bar-hover (topicSelected)="handleTopicSelected($event)" 
+    [class.hidden]="!isSidebarOpen && !isLargeScreen" 
+    class="w-full sm:w-1/8 p-4 left-section"></app-left-nav-bar-hover>
   
     <!-- Content Component -->
+    <div class="w-full sm:w-1/2 p-4 mx-4">
     <app-lesson1 *ngIf="selectedLesson === 'lesson-1'" class="w-1/2 p-4 mx-4"></app-lesson1>
     <app-lesson2 *ngIf="selectedLesson === 'lesson-2'" class="w-1/2 p-4 mx-4"></app-lesson2>
     <app-lesson3 *ngIf="selectedLesson === 'lesson-3'" class="w-1/2 p-4 mx-4"></app-lesson3>
     <app-lesson4 *ngIf="selectedLesson === 'lesson-4'" class="w-1/2 p-4 mx-4"></app-lesson4>
-   
+    </div>
 
-    <section class="w-1/6  p-4">
-      
+    <section class="w-1/6 p-4 hidden sm:block">
+      <!-- Optional Right Section Content -->
     </section>
   </div>

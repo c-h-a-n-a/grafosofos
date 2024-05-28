@@ -1,5 +1,5 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LessonsComponent } from '../lessons/lessons.component';
 import { ActivatedRoute, Params } from '@angular/router';
 import { LeftNavBarHoverComponent } from '../left-nav-bar-hover/left-nav-bar-hover.component';
@@ -19,30 +19,20 @@ import { Lesson4Component } from '../lesson4/lesson4.component';
   styleUrl: './lesson-page.component.css'
 })
 export class LessonPageComponent implements OnInit{
-
+  
   selectedContent: string = 'Default';
+  selectedLesson!: string;
+  isSidebarOpen: boolean = false;
+  isLargeScreen: boolean = false;
 
-  handleContentSelection(content: string) {
-    console.log('Selected Content:', content);
-    this.selectedContent = content;
-  }
-
- // selectedLesson: string = '';
-
- // isLesson2Selected: boolean = false;
-/*
-  handleLessonSelection(lessonContent: string) {
-    console.log('Selected lesson: ', lessonContent);
-    this.selectedLesson = lessonContent;
-    //this.selectedLesson = lessonContent;
-  }
-*/
-
-selectedLesson!: string;
-
-  constructor(private route: ActivatedRoute, private titleService: Title) { }
+  constructor(private route: ActivatedRoute, private titleService: Title, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isLargeScreen = window.innerWidth >= 640;
+      this.handleResize();
+    }
+
     this.route.params.subscribe((params: Params) => {
       const lessonId = params['lessonId'];
       const pageTitle = `Lesson | ${lessonId}`;
@@ -50,15 +40,11 @@ selectedLesson!: string;
       this.selectedLesson = lessonId;
     });
   }
-/*
-  handleSectionSelected(section: string) {
-    const targetSection = document.getElementById(section);
-    console.log('value of section: ',section);
-    if (targetSection) {
-      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+
+  handleContentSelection(content: string) {
+    console.log('Selected Content:', content);
+    this.selectedContent = content;
   }
-  */
 
   handleTopicSelected(topic: string) {
     const targetSection = document.getElementById(topic);
@@ -67,9 +53,19 @@ selectedLesson!: string;
     }
   }
 
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
 
-
-
-  
-
+  @HostListener('window:resize', ['$event'])
+  handleResize(event?: Event) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isLargeScreen = window.innerWidth >= 640;
+      if (this.isLargeScreen) {
+        this.isSidebarOpen = true;
+      } else {
+        this.isSidebarOpen = false;
+      }
+    }
+  }
 }
