@@ -13,7 +13,7 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 export class Lesson5ComponentComponent {
 
   constructor(private topicService: TopicListService) {
-    const lessonTitle = 'RULES IN WRITING ';
+    const lessonTitle = 'Rules in Writing ';
     const topics = ['Punctuation in Journalistic Writing', 'I.	Period, comma and colon', '•	Period (.)', '•	Comma (,)', '•	Colon (:)', 
     'II.	Semicolon, Dash, and Hyphen', '•	Semicolon (;)', '•	Dash (--)', '•	Hyphen (-)',
      'Vocabulary in Journalistic Writing', 'Importance of Wide vocabulary in Journalistic Writing', 'How to attain a wide vocabulary?', 'Quiz']; 
