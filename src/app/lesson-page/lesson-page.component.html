@@ -14,6 +14,7 @@
       <!-- Left Navigation Component -->
       <app-left-nav-bar-hover 
         (topicSelected)="handleTopicSelected($event)" 
+        (sidebarClose)="handleSidebarClose($event)"
         [class.hidden]="!isSidebarOpen && !isLargeScreen" 
         class="w-full sm:w-1/4 lg:w-1/8 p-4 left-section">
       </app-left-nav-bar-hover>

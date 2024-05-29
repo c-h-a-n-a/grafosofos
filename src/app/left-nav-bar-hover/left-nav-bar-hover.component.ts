@@ -21,6 +21,7 @@ export class LeftNavBarHoverComponent implements OnInit{
 */
 
 @Output() topicSelected: EventEmitter<string> = new EventEmitter<string>();
+@Output() sidebarClose = new EventEmitter<boolean>();
 
 selectTopic(topic: string) {
   this.topicSelected.emit(topic);
@@ -36,6 +37,11 @@ ngOnInit() {
     this.lessonTitle = topicNames.title;
     this.topicNames = topicNames.topics;
   });
+}
+
+closeSidebar() {
+  this.sidebarClose.emit(false); // Emit the close event with false value
+  console.log('this method is called and it will send a value');
 }
 
 }

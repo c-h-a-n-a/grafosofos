@@ -72,6 +72,10 @@ export class LessonPageComponent implements OnInit{
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
+  handleSidebarClose(isOpen: boolean) {
+    this.isSidebarOpen = isOpen;
+  }
+
   scrollToTop() {
     if (isPlatformBrowser(this.platformId)) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
