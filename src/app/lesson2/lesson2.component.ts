@@ -14,8 +14,12 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
 export class Lesson2Component {
 
   constructor(private topicService: TopicListService) {
-    const lessonTitle = 'Lesson Title for Lesson 2';
-    const topics = ['Topic E', 'Topic F', 'Topic G']; 
+    const lessonTitle = 'Types of Campus Journalism (Part 1)';
+    const topics = ['Different Categories in Campus Journalism', '1.	News Writing', '- ABCs of News Writing', '- News Value: What Makes a Story Newsworthy?', 
+    '- The Structure of the News Story', '- Writing the Headline', '- General Rules for News Writing',
+     '2.	Feature Writing', '- News Story vs. Feature', '- Structure of Feature Writing', '- Different Types of Feature Writing',
+      '- Tips for Writing Feature Article', '3.	Sports Writing', '- Qualities of a Good Sports Writer', '- Basic Rules for Writing Sports Story', '- Dynamic and Punchy Verbs', 
+      'Test Yourself',]; 
     this.topicService.updateTopicNames(lessonTitle, topics);
   }
 
