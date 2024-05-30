@@ -24,7 +24,7 @@ export class LeftNavBarHoverComponent implements OnInit{
 @Output() sidebarClose = new EventEmitter<boolean>();
 
 selectTopic(topic: string) {
-  this.topicSelected.emit(topic);
+  this.topicSelected.emit(topic);console.log('this will emit the topic: ', topic);
 }
 
 lessonTitle!: string;

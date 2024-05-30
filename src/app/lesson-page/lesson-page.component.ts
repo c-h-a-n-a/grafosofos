@@ -22,7 +22,7 @@ import { Lesson5ComponentComponent } from '../lesson5-component/lesson5-componen
 export class LessonPageComponent implements OnInit{
   
   selectedContent: string = 'Default';
-  selectedLesson!: string;
+  selectedLesson: string | undefined;
   isSidebarOpen: boolean = false;
   isLargeScreen: boolean = false;
 
@@ -38,10 +38,12 @@ export class LessonPageComponent implements OnInit{
       const lessonId = params['lessonId'];
       const pageTitle = `Lesson | ${lessonId}`;
       this.titleService.setTitle(pageTitle);
-      this.selectedLesson = lessonId;
+      this.selectedLesson = lessonId; console.log('this.selectedLesson : ', this.selectedLesson);
       this.scrollToTop(); // Scroll to top when navigating to a new lesson
     });
   }
+
+
 
   handleContentSelection(content: string) {
     console.log('Selected Content:', content);
