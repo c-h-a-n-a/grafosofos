@@ -21,7 +21,7 @@ export class Lesson4Component {
     const lessonTitle = 'Rules in Writing ';
     const topics = ['Grammar in Journalistic Writing', 'What are the Different Rules of Grammar in News Writing?', 
     '•	Be mindful of tenses to use', '•	Use of nouns. ', '•	Singularity and Plurality', 
-    'Errors to Avoid in Writing a Newspaper',
+    'Errors to Avoid in Writing a Newspaper', 'Vocabulary',
     'Test Yourself']; 
     this.topicService.updateTopicNames(lessonTitle, topics);
   }
