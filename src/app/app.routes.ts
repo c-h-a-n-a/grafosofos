@@ -24,7 +24,7 @@ export const routes: Routes = [
 
 
 export const routes: Routes = [
-    { path: 'home', title: 'Home', component: HomePageComponent },
+    { path: 'home', title: 'GrafoSofos', component: HomePageComponent },
     { path: 'lessons', title: 'Lessons', component: LessonsComponent },
     {
         path: 'lessons', children: [
