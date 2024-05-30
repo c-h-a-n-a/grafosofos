@@ -5,7 +5,9 @@ import { QuizQuestion } from '../quiz.model';
 import { TopicListService } from '../topic-list.service';
 import { NgIf } from '@angular/common';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top.component';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { state } from '@angular/animations';
+import { QuizDataServiceService } from '../quiz-data-service.service';
 
 @Component({
   selector: 'app-lesson1',
@@ -20,7 +22,7 @@ export class Lesson1Component {
   @Input() lessonId: string | undefined;
   currentLessonId: string | undefined;
 
-  constructor(private router: Router, private topicService: TopicListService) {
+  constructor(private router: Router, private route: ActivatedRoute, private topicService: TopicListService, private quizDataService: QuizDataServiceService) {
     const lessonTitle = 'Campus Journalism';
     const topics = ['What is Campus Journalism?', 'The importance of Campus Journalism', 'Quiz']; 
     this.topicService.updateTopicNames(lessonTitle, topics);
@@ -31,21 +33,10 @@ export class Lesson1Component {
   ngOnInit(): void {
     this.currentLessonId = this.lessonId;
     console.log('in lesson1 ngOnInit, the currentLessonId is: ', this.currentLessonId);
+    // Ensure lessonId is retrieved correctly
+    this.lessonId = this.route.snapshot.paramMap.get('lessonId') as string;
     
     
-  }
-
-
-
-  navigateToQuiz() {
-    const quizData = this.getQuizData(); // Replace with actual method to get quiz data
-   // this.quizService.setQuizData(quizData);
-    this.router.navigate(['/lessons', this.lessonId, 'quiz']);
-    console.log('this Lesson ID: ', this.lessonId);
-  }
-
-  getQuizData() {
-    // Logic to retrieve quiz data
   }
 
   quizQuestions: QuizQuestion[] = [
@@ -61,6 +52,12 @@ export class Lesson1Component {
     },
     // Add more questions as needed
   ];
+
+  goToQuiz() {
+    this.quizDataService.setQuestions(this.quizQuestions);
+    this.router.navigate(['/lessons', this.lessonId, 'quiz'], { state: { questions: this.quizQuestions } });
+    console.log('goToQuiz is clicked, the questions are : ', this.quizQuestions);
+  }
 
   showScrollButton: boolean = false;
 
