@@ -78,10 +78,10 @@ export class LessonTextComponent implements OnInit{
   }
 
   submitQuiz(): void {
-    const selectedAnswer = this.quizForm.value['question' + this.currentQuestionIndex];
-    const correctAnswer = this.questions[this.currentQuestionIndex].correctAnswer;
+    const selectedAnswer = this.quizForm.value['question' + this.currentQuestionIndex]; console.log('the selected answer is: ',selectedAnswer);
+    const correctAnswer = this.questions[this.currentQuestionIndex].correctAnswer; console.log('the correct answer will be: ', correctAnswer);
     this.answerSubmitted = true;
-    this.selectedAnswerIndex = selectedAnswer;
+    this.selectedAnswerIndex = selectedAnswer; console.log('this selected answer', this.selectedAnswerIndex);
     if (selectedAnswer === correctAnswer) {
       this.score++;
     }
@@ -97,6 +97,10 @@ export class LessonTextComponent implements OnInit{
     this.showNextButton = false;
     this.answerSubmitted = false;
     this.selectedAnswerIndex = null;
+    console.log('currentQuestionIndex: ', this.currentQuestionIndex);
+    console.log('showNextButton: ', this.showNextButton);
+    console.log('answerSubmitted: ', this.answerSubmitted);
+    console.log('selectedAnswerIndex: ', this.selectedAnswerIndex);
   }
 
   goToResult(): void {
