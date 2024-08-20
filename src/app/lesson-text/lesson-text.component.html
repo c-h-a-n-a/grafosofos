@@ -1,60 +1,51 @@
 <section class="text-gray-600 body-font">
   <div class="container px-5 mx-auto">
-    <div >
-      <div>
-        <form *ngIf="!quizCompleted && currentQuestionIndex < questions.length" [formGroup]="quizForm" (ngSubmit)="submitQuiz()" class="max-w-lg mx-auto mt-8 p-4 bg-pink-300 rounded-lg shadow-lg sm:w-full md:w-3/4 lg:w-3/4 xl:w-2/3">
-          <div>
-            <h3 class="text-lg font-semibold">{{ questions[currentQuestionIndex].text }}</h3>
-            <div *ngFor="let option of questions[currentQuestionIndex].options; let j = index" class="flex items-center mt-2">
-              <input type="radio" [value]="j" [formControlName]="'question' + currentQuestionIndex" id="{{ 'question' + currentQuestionIndex + 'option' + j }}" class="mr-2">
-              <label for="{{ 'question' + currentQuestionIndex + 'option' + j }}">{{ option }}</label>
-            </div>
-            <button type="submit" class="bg-pink-500 text-white py-2 px-4 rounded-md mt-4" [disabled]="answerSubmitted && selectedAnswerIndex === +questions[currentQuestionIndex].correctAnswer">Submit Answer</button>
+    <div>
+      <form *ngIf="!quizCompleted && currentQuestionIndex < questions.length" [formGroup]="quizForm" (ngSubmit)="submitQuiz()" class="max-w-lg mx-auto mt-8 p-4 bg-pink-300 rounded-lg shadow-lg sm:w-full md:w-3/4 lg:w-3/4 xl:w-2/3">
+        <div>
+          <h3 class="text-lg font-semibold">{{ questions[currentQuestionIndex].text }}</h3>
+          <div *ngFor="let option of questions[currentQuestionIndex].options; let j = index" class="flex items-center mt-2">
+            <input type="radio" [value]="j" [formControlName]="'question' + currentQuestionIndex" id="{{ 'question' + currentQuestionIndex + 'option' + j }}" class="mr-2">
+            <label for="{{ 'question' + currentQuestionIndex + 'option' + j }}">{{ option }}</label>
           </div>
-        
-          <div *ngIf="answerSubmitted">
-            <p *ngIf="selectedAnswerIndex === +questions[currentQuestionIndex].correctAnswer; else incorrectAnswer" class="text-green-600">
-              Correct Answer: {{ questions[currentQuestionIndex].options[+questions[currentQuestionIndex].correctAnswer] }}
-            </p>
-            <ng-template #incorrectAnswer>
-              <p class="text-red-600">Incorrect Answer. Correct Answer: {{ questions[currentQuestionIndex].options[+questions[currentQuestionIndex].correctAnswer] }}</p>
-            </ng-template>
-          </div>
-        
-          <div *ngIf="showNextButton">
-            <button (click)="nextQuestion()" class="bg-pink-500 text-white py-2 px-4 rounded-md mt-4">Next Question</button>
-          </div>
-        
-          <div *ngIf="showResultButton">
-            <button (click)="goToResult()" class="bg-pink-500 text-white py-2 px-4 rounded-md mt-4">Show Result</button>
-          </div>
-        
-          <div *ngIf="score !== null && currentQuestionIndex === questions.length" class="mt-4">
-            <h2 class="text-xl font-semibold">Your Score: {{ score }}/{{ questions.length }}</h2>
-          </div>
-        </form>
-        
-        <div *ngIf="quizCompleted" class="max-w-lg mx-auto mt-8 p-4 bg-pink-300 rounded-lg shadow-lg">
-          <div class="mt-4">
-            <p class="mb-2 text-xl">Congratulations! You have completed the quiz.</p>
-            <p class="mb-4">Your final score is: {{ score }}/{{ questions.length }}</p>
-          </div>
-          <div class="mt-4">
-            <button (click)="retakeQuiz()" class="bg-pink-500 text-white py-2 px-4 rounded-md">Retake Quiz</button>
-          </div>
+          <button type="submit" class="bg-pink-500 text-white py-2 px-4 rounded-md mt-4" [disabled]="answerSubmitted">Submit Answer</button>
+        </div>
+      
+        <div *ngIf="answerSubmitted">
+          <p *ngIf="selectedAnswerIndex === +questions[currentQuestionIndex].correctAnswer; else incorrectAnswer" class="text-green-600">
+            Correct Answer: {{ questions[currentQuestionIndex].options[+questions[currentQuestionIndex].correctAnswer] }}
+          </p>
+          <ng-template #incorrectAnswer>
+            <p class="text-red-600">Incorrect Answer. Correct Answer: {{ questions[currentQuestionIndex].options[+questions[currentQuestionIndex].correctAnswer] }}</p>
+          </ng-template>
+        </div>
+      
+        <div *ngIf="showNextButton">
+          <button (click)="nextQuestion()" class="bg-pink-500 text-white py-2 px-4 rounded-md mt-4">Next Question</button>
+        </div>
+      
+        <div *ngIf="showResultButton">
+          <button (click)="goToResult()" class="bg-pink-500 text-white py-2 px-4 rounded-md mt-4">Show Result</button>
+        </div>
+      
+        <div *ngIf="score !== null && currentQuestionIndex === questions.length" class="mt-4">
+          <h2 class="text-xl font-semibold">Your Score: {{ score }}/{{ questions.length }}</h2>
+        </div>
+      </form>
+      
+      <div *ngIf="quizCompleted" class="max-w-lg mx-auto mt-8 p-4 bg-pink-300 rounded-lg shadow-lg">
+        <div class="mt-4">
+          <p class="mb-2 text-xl">Congratulations! You have completed the quiz.</p>
+          <p class="mb-4">Your final score is: {{ score }}/{{ questions.length }}</p>
+        </div>
+        <div class="mt-4">
+          <button (click)="retakeQuiz()" class="bg-pink-500 text-white py-2 px-4 rounded-md">Retake Quiz</button>
         </div>
       </div>
-      
-
     </div>
-    
-    
+
     <div class="flex flex-wrap my-8">
-      <!--<button (click)="backToLesson()">Back to Lesson</button>-->
       <a class="bg-pink-500 text-white py-2 px-4 rounded-md mt-4" [routerLink]="['/lessons', lessonId]">Back to Lesson</a>
     </div>
-    
   </div>
 </section>
-
-

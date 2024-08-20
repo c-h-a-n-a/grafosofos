@@ -17,11 +17,7 @@ export class LessonTextComponent implements OnInit{
 
   quizData: any;
   lessonId!: string;
-  //lessonId = 'lesson-1';
-
   questions: QuizQuestion[] = [];
-
-  //@Input() questions: QuizQuestion[] = [];
   quizForm: FormGroup;
   score: number = 0;
   currentQuestionIndex: number = 0;
@@ -41,22 +37,7 @@ export class LessonTextComponent implements OnInit{
   }
 
   ngOnInit() {
-    // Using type assertion
-    this.lessonId = this.route.snapshot.paramMap.get('lessonId') as string;//you need this to return back to lesson1Component
-    console.log(this.lessonId);
-
-    // Or using a default value
-    // this.lessonId = this.route.snapshot.paramMap.get('lessonId') ?? '';
-
-    /*
-    this.questions = this.quizDataService.getQuestions();
-    if (this.questions.length === 0) {
-      console.error('Questions not found in quiz data service');
-    } else {
-      console.log('Retrieved questions:', this.questions);
-    }
-    */
-
+    this.lessonId = this.route.snapshot.paramMap.get('lessonId') as string;
     this.route.paramMap.subscribe(params => {
       const lessonId = params.get('lessonId');
       this.questions = this.quizDataService.getQuestions();
@@ -72,17 +53,26 @@ export class LessonTextComponent implements OnInit{
   initForm(): void {
     const formGroup: { [key: string]: any } = {};
     this.questions.forEach((question, index) => {
-      formGroup['question' + index] = '';
+      formGroup['question' + index] = [null];
     });
     this.quizForm = this.fb.group(formGroup);
+    console.log('Initialized form controls:', this.quizForm.value);
   }
 
   submitQuiz(): void {
-    const selectedAnswer = this.quizForm.value['question' + this.currentQuestionIndex]; console.log('the selected answer is: ',selectedAnswer);
-    const correctAnswer = this.questions[this.currentQuestionIndex].correctAnswer; console.log('the correct answer will be: ', correctAnswer);
+    const controlName = 'question' + this.currentQuestionIndex;
+    const selectedAnswer = this.quizForm.value[controlName];
+
+    console.log(`Form Control Value for ${controlName}:`, selectedAnswer);
+
+    const correctAnswer = this.questions[this.currentQuestionIndex].correctAnswer;
     this.answerSubmitted = true;
-    this.selectedAnswerIndex = selectedAnswer; console.log('this selected answer', this.selectedAnswerIndex);
-    if (selectedAnswer === correctAnswer) {
+    this.selectedAnswerIndex = selectedAnswer;
+
+    console.log('Selected Answer:', this.selectedAnswerIndex);
+    console.log('Correct Answer:', correctAnswer);
+
+    if (this.selectedAnswerIndex === correctAnswer) {
       this.score++;
     }
     this.showNextButton = true;
@@ -90,6 +80,8 @@ export class LessonTextComponent implements OnInit{
       this.showNextButton = false;
       this.showResultButton = true;
     }
+
+    console.log('Form Control Values after submission:', this.quizForm.value);
   }
 
   nextQuestion(): void {
@@ -97,14 +89,25 @@ export class LessonTextComponent implements OnInit{
     this.showNextButton = false;
     this.answerSubmitted = false;
     this.selectedAnswerIndex = null;
-    console.log('currentQuestionIndex: ', this.currentQuestionIndex);
-    console.log('showNextButton: ', this.showNextButton);
-    console.log('answerSubmitted: ', this.answerSubmitted);
-    console.log('selectedAnswerIndex: ', this.selectedAnswerIndex);
+
+    console.log('Moving to next question');
+    console.log('Current Question Index:', this.currentQuestionIndex);
+
+    this.resetFormControlForCurrentQuestion();
+  }
+
+  resetFormControlForCurrentQuestion(): void {
+    const controlName = 'question' + this.currentQuestionIndex;
+    if (this.quizForm.contains(controlName)) {
+      this.quizForm.get(controlName)?.setValue(null);
+    } else {
+      this.quizForm.addControl(controlName, this.fb.control(null));
+    }
+    console.log(`Form Control Value for ${controlName} after reset:`, this.quizForm.value[controlName]);
   }
 
   goToResult(): void {
-    this.quizCompleted = true; // Set quizCompleted to true only after answering the last question
+    this.quizCompleted = true;
   }
 
   retakeQuiz(): void {
@@ -116,10 +119,11 @@ export class LessonTextComponent implements OnInit{
     this.selectedAnswerIndex = null;
     this.quizCompleted = false;
     this.quizForm.reset();
+
+    this.initForm();
   }
 
   backToLesson() {
     this.router.navigate(['/lessons', this.lessonId]);
   }
-
 }
