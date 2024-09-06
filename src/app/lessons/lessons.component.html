@@ -9,17 +9,19 @@
       </div>-->
       <div class="flex flex-wrap -m-4">
         <div class="xl:w-1/4 md:w-1/2 p-4">
-          <a (click)="selectContent('lesson 1')" class="block cursor-pointer">
+          
           <div class="bg-gray-100 p-6 rounded-lg card-color">
             
             <h3 class="tracking-widest subtitle-color text-xs font-medium title-font">Lesson 1:</h3>
             <h2 class="text-xl text-white font-medium title-font mb-4">
               <a class="cursor-pointer hover:text-yellow-100" (click)="selectContent('lesson 1')">What is Campus Journalism</a>
             </h2>
+            <a (click)="selectContent('lesson 1')" class="block cursor-pointer">
             <p class="leading-relaxed text-base text-white italic hover:text-yellow-100">Campus Journalism is an activity of collecting, writing and editing stories inside a school or campus. 
               It enables student journalists to be a voice of the student body. 
-              In this lesson, students will gain knowledge on the concept of campus journalism as well as its importance. </p>
-          </div></a>
+              In this lesson, students will gain knowledge on the concept of campus journalism as well as its importance. </p></a>
+            <a (click)="goToQuiz1()">go to quiz</a>
+          </div>
         </div>
         <div class="xl:w-1/4 md:w-1/2 p-4">
           <a (click)="selectContent('lesson 2')" class="block cursor-pointer">

@@ -1,0 +1,39 @@
+<section class="text-gray-600 body-font">
+
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg ">
+        <h1 class="text-2xl font-bold mb-6">Submit Your Article</h1>
+        <form (ngSubmit)="onSubmit()" #articleForm="ngForm">
+            <!-- Form Fields -->
+            <div *ngIf="successMessage" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg shadow-md" role="alert">
+                {{ successMessage }}
+            </div>
+            <button type="submit">Submit</button>
+            <div class="mb-4">
+                <label for="author" class="block text-gray-700 font-bold mb-2">Author</label>
+                <input type="text" id="author" name="author" [(ngModel)]="article.author" name="author" required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="title" class="block text-gray-700 font-bold mb-2">Title</label>
+                <input type="text" id="title" name="title"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    [(ngModel)]="article.title" name="title" required>
+            </div>
+            <div class="mb-4">
+                <label for="content" class="block text-gray-700 font-bold mb-2">Content</label>
+                <textarea id="content" name="content" rows="10" [(ngModel)]="article.content" name="content" required
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="start here..."></textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <button (click)="backToArticle()"
+            class="flex mx-auto mt-16 text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">Go
+            back to Article</button>
+    </div>
+</section>
