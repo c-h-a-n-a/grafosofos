@@ -8,7 +8,7 @@ import { Article } from './article.model';
 })
 export class ArticleService {
 
-  private apiUrl: string = 'http://localhost:8080/api/articles';
+  private apiUrl: string = 'https://grafosofos-webapi-production.up.railway.app/api/articles';
 
   constructor(private http: HttpClient) {
     
