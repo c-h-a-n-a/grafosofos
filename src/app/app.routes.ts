@@ -7,6 +7,9 @@ import { LessonPageComponent } from './lesson-page/lesson-page.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { LessonTextComponent } from './lesson-text/lesson-text.component';
 import { LessonQuizComponent } from './lesson-quiz/lesson-quiz.component';
+import { ArticleComponent } from './article/article.component';
+import { CreateArticleComponent } from './create-article/create-article.component';
+import { ViewArticleComponent } from './view-article/view-article.component';
 
 /*
 export const routes: Routes = [
@@ -34,6 +37,15 @@ export const routes: Routes = [
             }
         ]
     },
+    { path: 'article', title: 'Articles', component: ArticleComponent },
+    { path: 'article', children: [
+        {
+            path: 'create-article', component: CreateArticleComponent,
+        },
+        {
+            path: 'view-article/:id', component: ViewArticleComponent,
+        }
+    ]  },
     { path: 'contact', title: 'Contact', component: ContactComponent },
     { path: 'about', title: 'About', component: AboutComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
