@@ -8,8 +8,8 @@
         | 
         <span>{{ article.date | date:'h:mm a' }}</span>
       </p>
-      <div class="prose prose-lg">
-        <p class="text-base sm:text-lg md:text-xl lg:text-2xl">{{ article.content }}</p>
+      <div class="p-4 md:p-6 lg:p-8">
+        <p class="mb-4 md:mb-6 lg:mb-8">{{ article.content }}</p>
       </div>
       <a 
         routerLink="/article"
