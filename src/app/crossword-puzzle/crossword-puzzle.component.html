@@ -1,0 +1,41 @@
+<p>crossword-puzzle works!</p>
+
+<!--<div class="crossword-container" ngSkipHydration>
+    <table class="crossword-grid">
+      <tr *ngFor="let row of crosswordGrid; let rowIndex = index">
+        <td *ngFor="let cell of row; let colIndex = index">
+          <input
+            *ngIf="isCellFilled(rowIndex, colIndex)"
+            type="text"
+            maxlength="1"
+            [(ngModel)]="crosswordGrid[rowIndex][colIndex]"
+            class="filled-cell"
+          />
+          <div *ngIf="!isCellFilled(rowIndex, colIndex)" class="empty-cell"></div>
+        </td>
+      </tr>
+    </table>
+  </div>-->
+
+  <div class="crossword-container">
+    <table class="crossword-grid">
+      <tr *ngFor="let row of crosswordGrid; let rowIndex = index">
+        <td *ngFor="let cell of row; let colIndex = index">
+          <input
+            *ngIf="isCellEditable(rowIndex, colIndex)"
+            type="text"
+            maxlength="1"
+            [(ngModel)]="crosswordGrid[rowIndex][colIndex].letter"
+            class="filled-cell"
+          />
+          <div *ngIf="!isCellEditable(rowIndex, colIndex)" class="empty-cell"></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  
+  
+  
+  
+  

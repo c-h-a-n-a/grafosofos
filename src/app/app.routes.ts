@@ -10,6 +10,9 @@ import { LessonQuizComponent } from './lesson-quiz/lesson-quiz.component';
 import { ArticleComponent } from './article/article.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
 import { ViewArticleComponent } from './view-article/view-article.component';
+import { CrosswordPuzzleComponent } from './crossword-puzzle/crossword-puzzle.component';
+import { MinigameComponent } from './minigame/minigame.component';
+import { WordhuntComponent } from './wordhunt/wordhunt.component';
 
 /*
 export const routes: Routes = [
@@ -47,6 +50,15 @@ export const routes: Routes = [
         }
     ]  },
     { path: 'contact', title: 'Contact', component: ContactComponent },
+    { path: 'minigame', title: 'Minigame', component: MinigameComponent },
+    { path: 'minigame', children: [
+        {
+            path: 'crossword', component: CrosswordPuzzleComponent,
+        },
+        {
+            path: 'word-hunt', component: WordhuntComponent,
+        }
+    ] },
     { path: 'about', title: 'About', component: AboutComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent }

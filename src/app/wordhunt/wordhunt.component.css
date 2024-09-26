@@ -1,0 +1,54 @@
+.container {
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 40px); /* Adjust width for your design */
+  gap: 2px; /* Space between letters */
+  margin: 20px auto; /* Center the grid */
+}
+
+.grid-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px; /* Cell width */
+  height: 40px; /* Cell height */
+  border: 1px solid #000; /* Optional border */
+  font-size: 18px; /* Adjust font size */
+  background-color: #f0f0f0; /* Background color */
+}
+
+.word-list {
+  margin-top: 20px; /* Spacing above word list */
+}
+
+.word-list ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+}
+
+.word-list li {
+  margin: 5px 0; /* Space between words */
+  font-size: 18px; /* Adjust font size */
+}
+
+.grid-cell {
+  display: inline-block;
+  width: 30px; /* Adjust cell width */
+  height: 30px; /* Adjust cell height */
+  text-align: center;
+  line-height: 30px; /* Center text vertically */
+  border: 1px solid #ccc; /* Add border for clarity */
+  cursor: pointer; /* Change cursor on hover */
+}
+
+.selected {
+  background-color: lightgreen; /* Highlight selected letters */
+}
+
+.found {
+  color: green;
+  font-weight: bold; /* Optional: Make the found words bold */
+}
