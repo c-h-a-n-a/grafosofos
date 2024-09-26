@@ -1,0 +1,41 @@
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">WORD HUNT</h1>
+      <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">add some description here.....</p>
+    </div>
+
+    <!--GRID-->
+    <div class="grid justify-center">
+      <div *ngFor="let row of letterGrid; let rowIndex = index">
+        <span *ngFor="let letter of row; let colIndex = index" class="grid-cell"
+          [ngClass]="{'selected': selectedLetters[rowIndex][colIndex]}" (click)="selectLetter(rowIndex, colIndex)">
+          {{ letter }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Reset Button -->
+    <div class="flex justify-center">
+      <button class="px-6 py-2 bg-gray-600 text-white font-bold rounded-full hover:bg-gray-700 transition duration-300"
+        (click)="resetSelection()">
+        Reset Selection
+      </button>
+    </div>
+
+    <!-- Word List Section -->
+    <div class="word-list text-center mb-8">
+      <h3 class="text-2xl font-semibold text-gray-600 mb-4">Find the following words:</h3>
+      <ul class="list-none">
+        <li *ngFor="let word of wordsInGrid"
+          class="inline-block px-4 py-2 border border-gray-300 rounded-lg mx-1 mb-2 transition-all duration-300 ease-in-out"
+          [ngClass]="{
+          'bg-green-500 text-white': isWordFound(word),
+          'bg-white hover:bg-blue-100': !isWordFound(word)
+        }">
+          {{ word }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
