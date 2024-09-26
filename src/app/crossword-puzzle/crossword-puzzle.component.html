@@ -1,41 +1,32 @@
 <p>crossword-puzzle works!</p>
+<h1 class="text-2xl font-bold text-center mb-4">Crossword Puzzle</h1>
 
-<!--<div class="crossword-container" ngSkipHydration>
-    <table class="crossword-grid">
-      <tr *ngFor="let row of crosswordGrid; let rowIndex = index">
-        <td *ngFor="let cell of row; let colIndex = index">
-          <input
-            *ngIf="isCellFilled(rowIndex, colIndex)"
-            type="text"
-            maxlength="1"
-            [(ngModel)]="crosswordGrid[rowIndex][colIndex]"
-            class="filled-cell"
-          />
-          <div *ngIf="!isCellFilled(rowIndex, colIndex)" class="empty-cell"></div>
-        </td>
-      </tr>
-    </table>
-  </div>-->
-
-  <div class="crossword-container">
-    <table class="crossword-grid">
-      <tr *ngFor="let row of crosswordGrid; let rowIndex = index">
-        <td *ngFor="let cell of row; let colIndex = index">
-          <input
-            *ngIf="isCellEditable(rowIndex, colIndex)"
-            type="text"
-            maxlength="1"
-            [(ngModel)]="crosswordGrid[rowIndex][colIndex].letter"
-            class="filled-cell"
-          />
-          <div *ngIf="!isCellEditable(rowIndex, colIndex)" class="empty-cell"></div>
-        </td>
-      </tr>
-    </table>
+<!-- Crossword grid -->
+<div class="crossword">
+  <div *ngFor="let row of grid; let rowIndex = index" class="crossword-row">
+    <div *ngFor="let cell of row; let colIndex = index" 
+         class="cell" 
+         [class.empty]="!cell.letter">
+      <!-- Word number -->
+      <span *ngIf="cell.number" class="number">{{ cell.number }}</span>
+      <!-- Input for the letter -->
+      <input type="text" maxlength="1" [disabled]="!cell.letter" />
+    </div>
   </div>
-  
-  
-  
+</div>
+
+<h2 class="text-xl font-semibold mb-2">Clues</h2>
+
+<!-- Clue list -->
+<div class="space-y-2">
+  <div *ngFor="let word of crossword" class="text-lg">
+    <strong>{{ word.number }} {{ word.direction === 'H' ? 'Across' : 'Down' }}:</strong> {{ word.clue }}
+  </div>
+</div>
+
+
+
+
   
   
   
