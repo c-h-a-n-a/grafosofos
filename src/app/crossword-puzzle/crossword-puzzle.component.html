@@ -1,4 +1,3 @@
-<p>crossword-puzzle works!</p>
 <h1 class="text-2xl font-bold text-center mb-4">Crossword Puzzle</h1>
 
 <!-- Crossword grid -->
@@ -10,7 +9,10 @@
       <!-- Word number -->
       <span *ngIf="cell.number" class="number">{{ cell.number }}</span>
       <!-- Input for the letter -->
-      <input type="text" maxlength="1" [disabled]="!cell.letter" />
+      <input type="text" maxlength="1" 
+             [ngModel]="cell.letter" 
+             [disabled]="!cell.letter && !isChecking" 
+             (ngModelChange)="cell.letter = $event" />
     </div>
   </div>
 </div>
@@ -19,14 +21,11 @@
 
 <!-- Clue list -->
 <div class="space-y-2">
-  <div *ngFor="let word of crossword" class="text-lg">
+  <div *ngFor="let word of crossword; let index = index" 
+       [ngClass]="{'text-green-500': isChecking && correctAnswers[index], 'text-red-500': isChecking && !correctAnswers[index]}" 
+       class="text-lg">
     <strong>{{ word.number }} {{ word.direction === 'H' ? 'Across' : 'Down' }}:</strong> {{ word.clue }}
   </div>
 </div>
 
-
-
-
-  
-  
-  
+<button (click)="checkAnswers()" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Check Answers</button>

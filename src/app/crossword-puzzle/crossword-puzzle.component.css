@@ -1,14 +1,14 @@
 .crossword {
   display: grid;
-  grid-template-columns: repeat(10, 40px);
-  grid-template-rows: repeat(10, 40px);
+  grid-template-columns: repeat(20, 40px); /* 20 columns */
+  grid-template-rows: repeat(20, 40px); /* 20 rows */
   gap: 2px;
   justify-content: center;
   margin-bottom: 20px;
 }
 
 .crossword-row {
-  display: contents;
+  display: contents; /* Ensure rows display as individual cells */
 }
 
 .cell {
@@ -17,23 +17,26 @@
   height: 40px;
   background-color: white;
   border: 1px solid #000;
+  display: flex; /* Flexbox for centering */
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
 }
 
 .cell.empty {
-  background-color: #f0f0f0;
+  background-color: #f0f0f0; /* Gray out empty cells */
 }
 
 .cell input {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  font-size: 18px;
-  border: none;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  text-align: center; /* Center text */
+  font-size: 18px; /* Text size */
+  border: none; /* No border */
 }
 
 .number {
-  position: absolute;
+  position: absolute; /* Position number */
   top: 2px;
   left: 2px;
-  font-size: 12px;
+  font-size: 12px; /* Number size */
 }
