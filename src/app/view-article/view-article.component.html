@@ -21,7 +21,8 @@
       |
       <span>{{ article.date | date:'h:mm a' }}</span>
     </p>
-    <p class="text-base break-words">{{ article.content }}</p>
+    <p class="text-base break-words" [innerHTML]="article.content" style="white-space: pre-line;"></p>
+
   </article>
   <a routerLink="/article" class="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
     Back to Articles
