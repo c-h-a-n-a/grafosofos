@@ -1,82 +1,102 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { QuizQuestion } from '../quiz.model';
+import { Question, QuizQuestion } from '../quiz.model';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { QuizService } from '../quiz.service';
 
 @Component({
   selector: 'app-lesson-quiz',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, RouterLink],
   templateUrl: './lesson-quiz.component.html',
   styleUrl: './lesson-quiz.component.css'
 })
 export class LessonQuizComponent implements OnInit{
 
-  @Input() questions: QuizQuestion[] = [];
-
-  quizForm: FormGroup;
-  score: number = 0;
+  questions: any[] = [];
   currentQuestionIndex: number = 0;
-  showNextButton: boolean = false;
-  showResultButton: boolean = false;
-  answerSubmitted: boolean = false;
-  selectedAnswerIndex: number | null = null;
-  quizCompleted: boolean = false;
+  selectedOption: string = '';
+  showFeedback: boolean = false;
+  feedbackMessage: string = '';
+  score: number = 0;
+  quizFinished: boolean = false;
+  lessonId: string = '';
+  title: string = '';
 
-  constructor(private fb: FormBuilder) { 
-    this.quizForm = this.fb.group({});
-  }
+  constructor(private quizService: QuizService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.initForm();
+    const lesson = this.route.snapshot.paramMap.get('lessonId');
+    this.getQuestionsByLesson(lesson);
+
+    this.getTitle(lesson as string);
   }
 
-  initForm(): void {
-    const formGroup: { [key: string]: any } = {};
-    this.questions.forEach((question, index) => {
-      formGroup['question' + index] = '';
-    });
-    this.quizForm = this.fb.group(formGroup);
+  getTitle(lesson: string){
+
+    switch ( lesson ) {
+      case 'lesson1':
+          this.title = 'Campus Journalism';
+          break;
+      case 'lesson2':
+          this.title = 'Types of Campus Journalism';
+          break;
+      case 'lesson3':
+          this.title = 'Types of Campus Journalism';
+          break;
+      case 'lesson4':
+          this.title = 'Rules in Writing';
+          break;
+      case 'lesson5':
+          this.title = 'Rules in Writing';
+          break;
+      default: 
+          // 
+          break;
+   }
   }
 
-  submitQuiz(): void {
-    const selectedAnswer = this.quizForm.value['question' + this.currentQuestionIndex];
-    const correctAnswer = this.questions[this.currentQuestionIndex].correctAnswer;
-    this.answerSubmitted = true;
-    this.selectedAnswerIndex = selectedAnswer;
-    if (selectedAnswer === correctAnswer) {
-      this.score++;
+  getQuestionsByLesson(lesson: string | null): void {
+    console.log(lesson);
+    if (lesson) {
+      this.quizService.getQuestionsByLesson(lesson).subscribe(data => {
+        this.questions = data; console.log(this.questions);
+        if (this.questions.length === 0) {
+          this.quizFinished = true;  // If no questions are fetched
+        }
+      });
     }
-    this.showNextButton = true;
-    if (this.currentQuestionIndex === this.questions.length - 1) {
-      
-      this.showNextButton = false;
-      this.showResultButton = true;
+  }
 
+  submitAnswer(): void {
+    this.showFeedback = true;
+    const correctAnswer = this.questions[this.currentQuestionIndex].correctAnswer;
+    if (this.selectedOption === correctAnswer) {
+      this.feedbackMessage = 'Correct answer!';
+      this.score++;
+    } else {
+      this.feedbackMessage = `Incorrect. The correct answer is: ${correctAnswer}`;
     }
   }
 
   nextQuestion(): void {
+    this.showFeedback = false;
+    this.selectedOption = '';
     this.currentQuestionIndex++;
-    this.showNextButton = false;
-    this.answerSubmitted = false;
-    this.selectedAnswerIndex = null;
-  }
-
-  goToResult(): void {
-    this.quizCompleted = true; // Set quizCompleted to true only after answering the last question
+    if (this.currentQuestionIndex >= this.questions.length) {
+      this.quizFinished = true;
+    }
   }
 
   retakeQuiz(): void {
-    this.score = 0;
+    this.quizFinished = false;
     this.currentQuestionIndex = 0;
-    this.showNextButton = false;
-    this.showResultButton = false;
-    this.answerSubmitted = false;
-    this.selectedAnswerIndex = null;
-    this.quizCompleted = false;
-    this.quizForm.reset();
+    this.score = 0;
   }
 
+  backToLesson() {
+    this.router.navigate(['/lessons', this.lessonId]);
+  }
 }

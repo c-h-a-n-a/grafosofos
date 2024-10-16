@@ -36,7 +36,7 @@ export const routes: Routes = [
         path: 'lessons', children: [
             { path: ':lessonId', component: LessonPageComponent },
             {
-                path: ':lessonId/quiz', component: LessonTextComponent // Add this line for quiz routing
+                path: ':lessonId/quiz', component: LessonQuizComponent // Add this line for quiz routing
             }
         ]
     },
