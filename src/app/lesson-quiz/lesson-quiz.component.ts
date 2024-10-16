@@ -62,7 +62,8 @@ export class LessonQuizComponent implements OnInit{
     console.log(lesson);
     if (lesson) {
       this.quizService.getQuestionsByLesson(lesson).subscribe(data => {
-        this.questions = data; console.log(this.questions);
+        this.questions = data; 
+        //console.log(this.questions);
         if (this.questions.length === 0) {
           this.quizFinished = true;  // If no questions are fetched
         }
