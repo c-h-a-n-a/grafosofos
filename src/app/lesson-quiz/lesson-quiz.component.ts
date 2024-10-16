@@ -24,6 +24,7 @@ export class LessonQuizComponent implements OnInit{
   quizFinished: boolean = false;
   lessonId: string = '';
   title: string = '';
+  selectedAnswer: string = '';  // Track the selected answer
 
   constructor(private quizService: QuizService, private route: ActivatedRoute, private router: Router) { }
 
@@ -83,6 +84,7 @@ export class LessonQuizComponent implements OnInit{
   }
 
   nextQuestion(): void {
+    this.selectedAnswer = '';  // Reset selected answer for the next question
     this.showFeedback = false;
     this.selectedOption = '';
     this.currentQuestionIndex++;
@@ -99,5 +101,14 @@ export class LessonQuizComponent implements OnInit{
 
   backToLesson() {
     this.router.navigate(['/lessons', this.lessonId]);
+  }
+
+  selectAnswer(answer: string): void {
+    this.selectedAnswer = answer;  // Update the selected answer
+  }
+
+  // Check if the user has selected an answer
+  isAnswerSelected(): boolean {
+    return this.selectedAnswer !== '';  // Button is enabled if an answer is selected
   }
 }
