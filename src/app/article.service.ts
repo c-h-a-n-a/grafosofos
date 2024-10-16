@@ -32,6 +32,11 @@ export class ArticleService {
     );
   }
 
+  getArticlesByPage(page: number, size: number): Observable<any> {
+    return this.http.get(`https://grafosofos-webapi-production.up.railway.app/articles?page=${page}&size=${size}`);
+  }
+  
+
   private handleError(error: HttpErrorResponse) {
     console.error('An error occurred:', error.message);
     return throwError('Something went wrong; please try again later.');
