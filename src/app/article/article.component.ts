@@ -16,14 +16,19 @@ export class ArticleComponent implements OnInit {
 
   articles: Article[] = [];
 
-  constructor(private articleService: ArticleService, private router: Router, private route: ActivatedRoute) { 
+  currentPage = 0;
+  pageSize = 15;
+  totalPages = 0;
+
+  constructor(private articleService: ArticleService, private router: Router, private route: ActivatedRoute) {
     // Disable route reuse strategy to ensure full reinitialization
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
   }
 
   ngOnInit(): void {
-    this.loadArticles();
+    //this.loadArticles();
+    this.loadArticlesByPage();
   }
 
   loadArticles(): void {
@@ -39,7 +44,29 @@ export class ArticleComponent implements OnInit {
     );
   }
 
-  goToCreateArticle(){
+  goToCreateArticle() {
     this.router.navigate(['article/create-article']);
+  }
+
+  loadArticlesByPage() {
+    this.articleService.getArticlesByPage(this.currentPage, this.pageSize)
+      .subscribe(data => {
+        this.articles = data.content;
+        this.totalPages = data.totalPages;
+      });
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.loadArticlesByPage();
+    }
+  }
+  
+  previousPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.loadArticlesByPage();
+    }
   }
 }

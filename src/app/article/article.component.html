@@ -27,8 +27,34 @@
       </div>
     </div>
 
+    <!-- Pagination controls -->
+
+    <div class="flex items-center justify-between mt-4">
+      <button 
+        (click)="previousPage()" 
+        [disabled]="currentPage === 0" 
+        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 disabled:opacity-50"
+      >
+        Previous
+      </button>
+      
+      <!-- Page display -->
+      <p class="mx-4 text-center">
+        Page {{ currentPage + 1 }} of {{ totalPages }}
+      </p>
+      
+      <button 
+        (click)="nextPage()" 
+        [disabled]="currentPage >= totalPages - 1" 
+        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 disabled:opacity-50"
+      >
+        Next
+      </button>
+    </div>
+
     <button (click)="goToCreateArticle()"
-      class="flex mx-auto mt-16 text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">Create
+      class="flex mx-auto mt-16 text-white bg-blue-900 border-0 py-2 px-8 focus:outline-none hover:bg-blue-500 rounded text-lg">Create
       your article and post it here!</button>
   </div>
 </section>
+
