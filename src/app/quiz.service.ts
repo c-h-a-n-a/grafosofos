@@ -12,6 +12,6 @@ export class QuizService {
 
   getQuestionsByLesson(lesson: string): Observable<any> {
   
-    return this.http.get<any>(`http://localhost:8080/api/questions/${lesson}`);  // this is the url for local development: http://localhost:8080/api/questions/${lesson}
+    return this.http.get<any>(`https://grafosofos-webapi-production.up.railway.app/api/questions/${lesson}`);  // this is the url for local development: http://localhost:8080/api/questions/${lesson} https://grafosofos-webapi-production.up.railway.app/api/questions/${lesson}
   }
 }
