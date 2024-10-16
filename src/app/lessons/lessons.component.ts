@@ -301,11 +301,10 @@ export class LessonsComponent implements OnInit{
     this.router.navigate(['lessons', content.toLowerCase().replace(' ', '-')]); // Navigate with selected lesson parameter
   }
 
-  goToQuiz1() {
-    this.lessonId = 'lesson-1';
-    this.quizDataService.setQuestions(this.quizQuestions1);
-    this.router.navigate(['/lessons', this.lessonId, 'quiz'], { state: { questions: this.quizQuestions1 } });
-    console.log('goToQuiz is clicked, the questions are : ', this.quizQuestions1);
+  goToQuiz(lesson: string) {
+    this.lessonId = lesson;
+    this.router.navigate(['/lessons', this.lessonId, 'quiz']);
+    //console.log('goToQuiz is clicked, the questions are : ', this.lessonId);
   }
 
   goToQuiz2() {
