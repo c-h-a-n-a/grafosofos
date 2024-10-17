@@ -1,31 +1,52 @@
-<h1 class="text-2xl font-bold text-center mb-4">Crossword Puzzle</h1>
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-20 mx-auto">
+    <div class="flex flex-wrap w-full mb-25 flex-col items-center text-center">
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-1 text-gray-900">CROSSWORD</h1>
+      <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">add some description here.....</p>
+    </div>
 
-<!-- Crossword grid -->
-<div class="crossword">
-  <div *ngFor="let row of grid; let rowIndex = index" class="crossword-row">
-    <div *ngFor="let cell of row; let colIndex = index" 
-         class="cell" 
-         [class.empty]="!cell.letter">
-      <!-- Word number -->
-      <span *ngIf="cell.number" class="number">{{ cell.number }}</span>
-      <!-- Input for the letter -->
-      <input type="text" maxlength="1" 
-             [ngModel]="cell.letter" 
-             [disabled]="!cell.letter && !isChecking" 
-             (ngModelChange)="cell.letter = $event" />
+    <div class="crossword-container">
+      <div class="crossword-grid">
+        <div *ngFor="let row of grid; let rowIndex = index" class="grid-row">
+          <div *ngFor="let cell of row; let colIndex = index" class="grid-cell">
+            <span *ngIf="getNumber(rowIndex, colIndex)" class="cell-number">{{ getNumber(rowIndex, colIndex) }}</span>
+            
+            <ng-container *ngIf="isCellInput(rowIndex, colIndex)">
+              <input 
+                type="text" 
+                maxlength="1" 
+                (input)="updateCell($event, rowIndex, colIndex)" 
+                [value]="answers[rowIndex][colIndex] !== null ? answers[rowIndex][colIndex] : ''" 
+                class="cell-input" 
+              />
+            </ng-container>
+            
+            <ng-container *ngIf="!isCellInput(rowIndex, colIndex)">
+              <span>{{ cell }}</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    
+      <div class="checker">
+        <button class="px-6 py-2 bg-blue-600 text-white font-bold rounded-full hover:bg-gray-700 transition duration-300" (click)="checkAnswers()">Check Answers</button>
+      </div>
+      
+    
+      <div class="clues">
+        <h3>Across</h3>
+        <ul>
+          <li *ngFor="let clue of acrossClues">{{ clue.index }}. {{ clue.text }}</li>
+        </ul>
+        <h3>Down</h3>
+        <ul>
+          <li *ngFor="let clue of downClues">{{ clue.index }}. {{ clue.text }}</li>
+        </ul>
+      </div>
+    
+      
     </div>
   </div>
-</div>
+</section>
 
-<h2 class="text-xl font-semibold mb-2">Clues</h2>
 
-<!-- Clue list -->
-<div class="space-y-2">
-  <div *ngFor="let word of crossword; let index = index" 
-       [ngClass]="{'text-green-500': isChecking && correctAnswers[index], 'text-red-500': isChecking && !correctAnswers[index]}" 
-       class="text-lg">
-    <strong>{{ word.number }} {{ word.direction === 'H' ? 'Across' : 'Down' }}:</strong> {{ word.clue }}
-  </div>
-</div>
-
-<button (click)="checkAnswers()" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Check Answers</button>

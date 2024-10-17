@@ -1,86 +1,178 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { crosswordData } from './crossword-data';
 
-interface CrosswordWord {
-  word: string;
-  row: number;
-  col: number;
-  direction: 'H' | 'V';  // 'H' for Horizontal, 'V' for Vertical
-  clue: string;
-  number: number;
+interface Word {
+  text: string;
+  x: number;
+  y: number;
+  direction: 'horizontal' | 'vertical';
 }
+
+// Define the Clue type
+interface Clue {
+  index: number;
+  text: string;
+}
+
 
 @Component({
   selector: 'app-crossword-puzzle',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgIf, NgFor],
   templateUrl: './crossword-puzzle.component.html',
   styleUrl: './crossword-puzzle.component.css'
 })
 export class CrosswordPuzzleComponent implements OnInit {
-  crossword: CrosswordWord[] = [
-    { word: "EDITING", row: 0, col: 5, direction: "H", clue: "Process of reviewing written material.", number: 1 },
-    { word: "JOURNAL", row: 4, col: 15, direction: "V", clue: "A periodical publication.", number: 2 },
-    { word: "COLUMN", row: 6, col: 13, direction: "V", clue: "A recurring article.", number: 3 },
-    { word: "SOURCES", row: 4, col: 4, direction: "H", clue: "People or documents.", number: 4 },
-    { word: "TRUTH", row: 2, col: 7, direction: "H", clue: "Being in accordance with fact.", number: 5 },
-    { word: "MEDIA", row: 7, col: 6, direction: "H", clue: "Means of mass communication.", number: 6 },
-    { word: "REPORTS", row: 3, col: 18, direction: "V", clue: "Documents presenting information in a structured format.", number: 7 },
-    { word: "HEADLINE", row: 3, col: 0, direction: "H", clue: "A title of a news article, often designed to grab attention.", number: 8 },
-    { word: "INTERVIEW", row: 0, col: 7, direction: "V", clue: "A conversation where questions are asked to obtain information.", number: 9 },
-    { word: "CONCLUSION", row: 6, col: 10, direction: "H", clue: "The final part of a piece of writing, summarizing the main points.", number: 10 },
-    { word: "CAPTION", row: 6, col: 10, direction: "V", clue: "A brief explanation or description accompanying an illustration.", number: 11 },
-    { word: "VOCABULARY", row: 0, col: 2, direction: "V", clue: "The set of words known and used by a person or group.", number: 12 },
-  ];
-  
-  grid: { letter: string, number?: number }[][] = [];
-  isChecking = false; // Track if checking answers
-  correctAnswers: boolean[] = []; // Track if each answer is correct
-
   ngOnInit(): void {
-    this.initializeGrid();
-    this.placeWords();
+
+  }
+  // Initialize the grid with null values
+  grid: (string | null)[][] = Array(10).fill(null).map(() => Array(10).fill(null));
+
+  // Define words with their respective placements and starting positions
+  wordsAcross = [
+    { word: 'VOCABULARY', row: 1, col: 0, clue: 'The body of words used in a particular language.', startIndex: 1 },
+    { word: 'INTERVIEW', row: 9, col: 0, clue: 'A meeting of people face to face, especially for consultation.', startIndex: 2 },
+    { word: 'CAPTION', row: 0, col: 1, clue: 'A brief explanation appended to an article, illustration, cartoon, or poster.', startIndex: 3 },
+    { word: 'COLON', row: 8, col: 0, clue: 'A punctuation mark used to precede a list of items, a quotation, or an expansion or explanation.', startIndex: 4 },
+    { word: 'COLUMN', row: 3, col: 1, clue: 'An upright pillar or a vertical division of a page or text.', startIndex: 5 }
+  ];
+
+  wordsDown = [
+    { word: 'CONCLUSION', row: 0, col: 1, clue: 'The end or finish of an event or process.', startIndex: 1 },
+    { word: 'MEDIA', row: 3, col: 5, clue: 'The main means of mass communication.', startIndex: 2 },
+    { word: 'NEWS', row: 3, col: 6, clue: 'Newly received or noteworthy information, especially about recent events.', startIndex: 3 },
+    { word: 'REPORTS', row: 1, col: 8, clue: 'Give a spoken or written account of something that one has observed, heard, done, or investigated.', startIndex: 4 },
+    { word: 'BYLINE', row: 0, col: 9, clue: 'A line in a newspaper naming the writer of an article.', startIndex: 5 }
+  ];
+
+  acrossClues: { index: number; text: string }[] = [];
+  downClues: { index: number; text: string }[] = [];
+  answers: (string | null)[][] = Array(10).fill(null).map(() => Array(10).fill(null));
+
+  constructor() {
+    this.fillGrid();
+    this.setClues();
   }
 
-  // Initialize a 20x20 grid with empty cells
-  initializeGrid() {
-    this.grid = Array.from({ length: 20 }, () =>
-      Array.from({ length: 20 }, () => ({ letter: '', number: undefined }))
-    );
-  }
-
-  // Place words on the grid, ensuring that intersections are properly handled
-  placeWords() {
-    this.crossword.forEach(({ word, row, col, direction, number }) => {
+  fillGrid() {
+    // Fill across words
+    this.wordsAcross.forEach(({ word, row, col }) => {
       for (let i = 0; i < word.length; i++) {
-        let currentRow = row;
-        let currentCol = col;
+        this.grid[row][col + i] = word[i]; // Fill with actual letters for across words
+      }
+    });
 
-        // Determine the cell based on direction
-        if (direction === 'H') {
-          currentCol += i; // For horizontal words, increment the column
-        } else if (direction === 'V') {
-          currentRow += i; // For vertical words, increment the row
+    // Fill down words
+    this.wordsDown.forEach(({ word, row, col }) => {
+      for (let i = 0; i < word.length; i++) {
+        // Only fill if it's not already filled by an across word
+        if (!this.grid[row + i][col]) {
+          this.grid[row + i][col] = ''; // Initialize empty if not filled by across
         }
-
-        const currentLetter = word[i];
-        const cell = this.grid[currentRow][currentCol];
-
-        // Place the letter if the cell is empty or the letter matches
-        this.grid[currentRow][currentCol] = { letter: currentLetter, number: i === 0 ? number : cell.number };
       }
     });
   }
 
-  // Check answers function
-  checkAnswers() {
-    this.isChecking = true; // Enable checking mode
-    this.correctAnswers = this.crossword.map((word, index) => {
-      const userInput = this.grid[word.row].slice(word.col, word.col + word.word.length).map(c => c.letter).join('');
-      return userInput === word.word; // Check if user's input matches the word
-    });
+  setClues() {
+    // Assign clues with index numbers
+    this.acrossClues = this.wordsAcross.map((wordObj, index) => ({
+      index: wordObj.startIndex,
+      text: wordObj.clue
+    }));
+    this.downClues = this.wordsDown.map((wordObj, index) => ({
+      index: wordObj.startIndex,
+      text: wordObj.clue
+    }));
   }
+
+  updateCell(event: Event, row: number, col: number) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value.toUpperCase(); // Convert input to uppercase
+
+    // Only update the grid cell if the input is valid (1 character)
+    if (value.length <= 1) {
+      this.answers[row][col] = value; // Update answers with the input value
+    }
+  }
+
+  isCellInput(row: number, col: number): boolean {
+    // Check if the cell is supposed to be an input box
+    const isAcross = this.wordsAcross.some(word => word.row === row && col >= word.col && col < word.col + word.word.length);
+    const isDown = this.wordsDown.some(word => word.col === col && row >= word.row && row < word.row + word.word.length);
+    return isAcross || isDown;
+  }
+
+  checkAnswers() {
+    let correctWordCount = 0;
+    let totalCorrectWord = 10;
+
+    // Check across answers
+    this.wordsAcross.forEach(({ word, row, col }) => {
+      let isCorrect = true; // Assume the word is correct until proven otherwise
+      for (let i = 0; i < word.length; i++) {
+        if (this.answers[row][col + i] !== word[i]) {
+          isCorrect = false; // If any letter is incorrect, mark the word as incorrect
+          break;
+        }
+      }
+      if (isCorrect) {
+        correctWordCount++; // Increment for each correct word
+      }
+    });
+
+    // Check down answers
+    this.wordsDown.forEach(({ word, row, col }) => {
+      let isCorrect = true; // Assume the word is correct until proven otherwise
+      for (let i = 0; i < word.length; i++) {
+        if (this.answers[row + i][col] !== word[i]) {
+          isCorrect = false; // If any letter is incorrect, mark the word as incorrect
+          break;
+        }
+      }
+      if (isCorrect) {
+        correctWordCount++; // Increment for each correct word
+      }
+    });
+
+    if (correctWordCount === totalCorrectWord) {
+      alert("Congratulations! You got all the answers correct!");
+      this.resetCrossword(); // Reset the crossword if all answers are correct
+    } else {
+      alert(`You have ${correctWordCount} correct answers!`);
+    }
+
+  }
+
+  // Method to reset the crossword puzzle
+  resetCrossword() {
+    // Reset the answers grid to null
+    this.answers = Array(10).fill(null).map(() => Array(10).fill(null));
+
+    // Optionally reset the grid if needed (depends on your design)
+    // this.grid = Array(10).fill(null).map(() => Array(10).fill(null));
+
+    // You can also call fillGrid() and setClues() if you want to reset the words and clues
+    this.fillGrid();
+    this.setClues();
+  }
+
+  getNumber(row: number, col: number): number | null {
+    // Check if the current cell is the start of an across word
+    const acrossWord = this.wordsAcross.find(word => word.row === row && word.col === col);
+    // Check if the current cell is the start of a down word
+    const downWord = this.wordsDown.find(word => word.row === row && word.col === col);
+
+    if (acrossWord) {
+      return acrossWord.startIndex; // Return the index for the across word
+    } else if (downWord) {
+      return downWord.startIndex; // Return the index for the down word
+    }
+    return null; // Return null if it's not a starting cell
+  }
+
+
 }
 
