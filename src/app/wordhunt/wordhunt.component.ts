@@ -23,7 +23,7 @@ export class WordhuntComponent implements OnInit {
   selectedWordDirection: { rowDir: number, colDir: number } | null = null; // Direction of word selection
 
   constructor() {
-    this.words = ['dilaw', 'mahika', 'larawan', 'lunes', 'magbalik', 'mundo', 'paraluman'];
+    this.words = ['headline', 'editing', 'journal', 'radio', 'journalism', 'content', 'grammar'];
     this.skippedWords = [];
     this.wordsInGrid = []; // Initialize wordsInGrid array
     this.letterGrid = [];
