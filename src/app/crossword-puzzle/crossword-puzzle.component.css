@@ -1,42 +1,51 @@
-.crossword {
-  display: grid;
-  grid-template-columns: repeat(20, 40px); /* 20 columns */
-  grid-template-rows: repeat(20, 40px); /* 20 rows */
-  gap: 2px;
+.crossword-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; /* Add some padding to the container */
+}
+
+.crossword-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-row {
+  display: flex;
+}
+
+.grid-cell {
+  width: 40px;  /* Set to your desired width */
+  height: 40px; /* Set to your desired height */
+  border: 1px solid black;
+  display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  align-items: center;
+  position: relative; /* Important for positioning the clue numbers */
 }
 
-.crossword-row {
-  display: contents; /* Ensure rows display as individual cells */
+/* Non-editable cells (empty boxes) */
+.grid-cell:not(.cell-input) {
+  background-color: black; /* Black background for non-editable empty cells */
 }
 
-.cell {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  background-color: white;
-  border: 1px solid #000;
-  display: flex; /* Flexbox for centering */
-  align-items: center; /* Center content vertically */
-  justify-content: center; /* Center content horizontally */
+/* Editable input cells */
+.cell-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  background-color: white; /* White background for input boxes */
+  color: black; /* Black text color for input boxes */
+  font-size: 20px; /* Font size for input text */
 }
 
-.cell.empty {
-  background-color: #f0f0f0; /* Gray out empty cells */
-}
-
-.cell input {
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  text-align: center; /* Center text */
-  font-size: 18px; /* Text size */
-  border: none; /* No border */
-}
-
-.number {
-  position: absolute; /* Position number */
-  top: 2px;
-  left: 2px;
-  font-size: 12px; /* Number size */
+/* Clue numbers */
+.cell-number {
+  position: absolute;
+  top: 5px; /* Adjust as necessary for visibility */
+  left: 5px; /* Adjust as necessary for visibility */
+  color: black; /* Black color for numbers for contrast against white */
+  font-size: 12px; /* Adjust font size as necessary */
 }
