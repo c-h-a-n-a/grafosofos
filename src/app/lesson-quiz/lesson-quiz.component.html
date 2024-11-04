@@ -6,15 +6,7 @@
           <h1 class="text-lg font-semibold">{{title}}</h1>
           <p class="text-lg">Question {{currentQuestionIndex + 1}} / {{questions.length}}</p>
           <p *ngIf="questions[currentQuestionIndex]" class="text-xl font-bold">{{questions[currentQuestionIndex]?.questionText}}</p>
-        </div>
-
-        <div *ngIf="quizNotStarted" class="text-center mt-8">
-          <button 
-          [routerLink]="['/lessons']" 
-          class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2">
-          Back to Lessons
-        </button>
-        </div>
+        </div>       
 
         <div class="mb-4">
           <div *ngFor="let option of questions[currentQuestionIndex]?.optionsList" class="mb-2">
@@ -27,6 +19,14 @@
               class="mr-2">
             <label for="{{option}}" class="cursor-pointer">{{option}}</label>
           </div>
+        </div>
+
+        <div *ngIf="quizNotStarted" class="text-center mt-8">
+          <button 
+          [routerLink]="['/lessons']" 
+          class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2">
+          Back to Lessons
+        </button>
         </div>
 
         <div *ngIf="showFeedback" class="mt-4">
