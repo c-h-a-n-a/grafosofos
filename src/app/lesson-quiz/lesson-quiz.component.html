@@ -8,6 +8,14 @@
           <p *ngIf="questions[currentQuestionIndex]" class="text-xl font-bold">{{questions[currentQuestionIndex]?.questionText}}</p>
         </div>
 
+        <div *ngIf="quizNotStarted" class="text-center mt-8">
+          <button 
+          [routerLink]="['/lessons']" 
+          class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2">
+          Back to Lessons
+        </button>
+        </div>
+
         <div class="mb-4">
           <div *ngFor="let option of questions[currentQuestionIndex]?.optionsList" class="mb-2">
             <input 
@@ -20,12 +28,6 @@
             <label for="{{option}}" class="cursor-pointer">{{option}}</label>
           </div>
         </div>
-
-        <button 
-            [routerLink]="['/lessons']" 
-            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2">
-            Back to Lessons
-          </button>
 
         <div *ngIf="showFeedback" class="mt-4">
           <p [ngClass]="{'text-green-500': feedbackMessage === 'Correct answer!', 'text-red-500': feedbackMessage !== 'Correct answer!'}">{{feedbackMessage}}</p>
@@ -57,7 +59,11 @@
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Retake Quiz
           </button>
-          
+          <button 
+            [routerLink]="['/lessons']" 
+            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2">
+            Back to Lessons
+          </button>
         </div>
       </div>
     </div>

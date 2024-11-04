@@ -22,6 +22,7 @@ export class LessonQuizComponent implements OnInit{
   feedbackMessage: string = '';
   score: number = 0;
   quizFinished: boolean = false;
+  quizNotStarted: boolean = true;
   lessonId: string = '';
   title: string = '';
   selectedAnswer: string = '';  // Track the selected answer
@@ -74,6 +75,7 @@ export class LessonQuizComponent implements OnInit{
 
   submitAnswer(): void {
     this.showFeedback = true;
+    this.quizNotStarted = false;
     const correctAnswer = this.questions[this.currentQuestionIndex].correctAnswer;
     if (this.selectedOption === correctAnswer) {
       this.feedbackMessage = 'Correct answer!';
