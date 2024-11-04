@@ -23,8 +23,7 @@ export class Lesson2Component {
     const topics = ['Different Categories in Campus Journalism', '1.	News Writing', '- ABCs of News Writing', '- News Value: What Makes a Story Newsworthy?', 
     '- The Structure of the News Story', '- Writing the Headline', '- General Rules for News Writing',
      '2.	Feature Writing', '- News Story vs. Feature', '- Structure of Feature Writing', '- Different Types of Feature Writing',
-      '- Tips for Writing Feature Article', '3.	Sports Writing', '- Qualities of a Good Sports Writer', '- Basic Rules for Writing Sports Story', '- Dynamic and Punchy Verbs', 
-      'Test Yourself',]; 
+      '- Tips for Writing Feature Article', '3.	Sports Writing', '- Qualities of a Good Sports Writer', '- Basic Rules for Writing Sports Story', '- Dynamic and Punchy Verbs']; 
     this.topicService.updateTopicNames(lessonTitle, topics);
   }
 

@@ -25,8 +25,7 @@ export class Lesson3Component {
     'Editorial Cartoon', '•	Elements of Editorial Cartoons', '•	Steps in Making Editorial Cartoons',
     '•	Tips in Editorial Cartoon', 'Radio Broadcasting', '•	Tools for Broadcasting', '•	Tips on Writing Scripts for your Listeners', '•	Basic Steps in Radio Script Writing',
     'Photojournalism', '•	Five Main Functions of Photos/Illustrations', '•	Characteristic of a Good Photojournalist',
-    '•	Qualities of a Good Photo', '•	What is a Caption?',
-    'Test Yourself']; 
+    '•	Qualities of a Good Photo', '•	What is a Caption?']; 
     this.topicService.updateTopicNames(lessonTitle, topics);
   }
 
