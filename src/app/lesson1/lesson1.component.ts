@@ -24,7 +24,7 @@ export class Lesson1Component {
 
   constructor(private router: Router, private route: ActivatedRoute, private topicService: TopicListService, private quizDataService: QuizDataServiceService) {
     const lessonTitle = 'Campus Journalism';
-    const topics = ['What is Campus Journalism?', 'The importance of Campus Journalism', 'Quiz']; 
+    const topics = ['What is Campus Journalism?', 'The importance of Campus Journalism']; 
     this.topicService.updateTopicNames(lessonTitle, topics);
   }
 

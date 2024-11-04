@@ -23,8 +23,7 @@ export class Lesson4Component {
     const topics = ['Grammar in Journalistic Writing', 'What are the Different Rules of Grammar in News Writing?', 
     '•	Be mindful of tenses to use', '•	Use of nouns. ', '•	Singularity and Plurality', 
     'Errors to Avoid in Writing a Newspaper',
-    'Vocabulary in Journalistic Writing', 'Importance of Wide vocabulary in Journalistic Writing', 'How to attain a wide vocabulary?', 'Vocabulary',
-    'Test Yourself']; 
+    'Vocabulary in Journalistic Writing', 'Importance of Wide vocabulary in Journalistic Writing', 'How to attain a wide vocabulary?', 'Vocabulary']; 
     this.topicService.updateTopicNames(lessonTitle, topics);
   }
 

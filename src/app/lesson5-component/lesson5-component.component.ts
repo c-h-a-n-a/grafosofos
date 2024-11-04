@@ -21,7 +21,7 @@ export class Lesson5ComponentComponent {
   constructor(private router: Router, private route: ActivatedRoute, private topicService: TopicListService, private quizDataService: QuizDataServiceService) {
     const lessonTitle = 'Rules in Writing ';
     const topics = ['Punctuation in Journalistic Writing', 'I.	Period, comma and colon', '•	Period (.)', '•	Comma (,)', '•	Colon (:)', 
-    'II.	Semicolon, Dash, and Hyphen', '•	Semicolon (;)', '•	Dash (--)', '•	Hyphen (-)', 'Test Yourself']; 
+    'II.	Semicolon, Dash, and Hyphen', '•	Semicolon (;)', '•	Dash (--)', '•	Hyphen (-)']; 
     this.topicService.updateTopicNames(lessonTitle, topics);
   }
 
