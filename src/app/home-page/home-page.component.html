@@ -34,19 +34,30 @@
   <!-- Add more sections as needed -->
 </div>
 
-<!-- src/app/app.component.html -->
-<!--<div class="bg-custom-pattern bg-fixed bg-center bg-cover h-screen">
-  <div class="h-full w-full flex items-center justify-center">
-    <div class="text-center lg:w-2/3 w-full">
-      <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">GrafoSofos</h1>
-      <p class="mb-8 leading-relaxed text-white">​GrafoSofos is a combination of two Greek words. “Grafo” means “Write” and “Sofos” means “Wise”. 
-        This website is an innovative online platform designed to provide budding journalists and writers with extensive materials 
-        and interactive lessons on campus journalism. It provides a multifaceted learning experience by combining text and short quizzes, 
-        enabling users with the necessary skills and knowledge to flourish in journalistic​ writing within the context of campus reporting.</p>
-      
+<!-- Video Preview Section -->
+<div class="flex justify-center py-12">
+  <!-- Video Preview Thumbnail -->
+  <div class="relative w-full max-w-lg cursor-pointer" (click)="showVideoModal = true">
+    <video class="w-full rounded-lg shadow-lg" muted autoplay loop>
+      <source src="assets/TUTORIAL.mov" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    
+    <!-- Play Button Overlay Icon -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="bg-black bg-opacity-50 rounded-full p-4">
+        <svg class="w-12 h-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-5.197 2.857A1 1 0 018 13.112V8.888a1 1 0 011.555-.832l5.197 2.857a1 1 0 010 1.744z" />
+        </svg>
+      </div>
     </div>
   </div>
-</div>-->
+</div>
+
+<!-- Conditionally Render Video Modal -->
+<app-video-modal *ngIf="showVideoModal" (close)="showVideoModal = false"></app-video-modal>
+
+
 
   <section class="text-gray-600 body-font">
     <div class="container px-5 py-24 mx-auto">
