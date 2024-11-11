@@ -26,6 +26,7 @@ export class LessonQuizComponent implements OnInit{
   lessonId: string = '';
   title: string = '';
   selectedAnswer: string = '';  // Track the selected answer
+  isSubmitted: boolean = false; // New variable
 
   constructor(private quizService: QuizService, private route: ActivatedRoute, private router: Router) { }
 
@@ -74,20 +75,27 @@ export class LessonQuizComponent implements OnInit{
   }
 
   submitAnswer(): void {
-    this.showFeedback = true;
-    this.quizNotStarted = false;
+    
+    if (!this.isSubmitted) {
+      // Check the answer and provide feedback
+      this.showFeedback = true;
+      this.isSubmitted = true; // Disable submit after the first click
+      this.quizNotStarted = false;
     const correctAnswer = this.questions[this.currentQuestionIndex].correctAnswer;
-    if (this.selectedOption === correctAnswer) {
-      this.feedbackMessage = 'Correct answer!';
-      this.score++;
-    } else {
-      this.feedbackMessage = `Incorrect. The correct answer is: ${correctAnswer}`;
+
+      if (this.selectedOption === correctAnswer) {
+        this.feedbackMessage = 'Correct answer!';
+        this.score++;
+      } else {
+        this.feedbackMessage = `Incorrect! The correct answer is: ${correctAnswer}`;
+      }
     }
   }
 
   nextQuestion(): void {
     this.selectedAnswer = '';  // Reset selected answer for the next question
     this.showFeedback = false;
+    this.isSubmitted = false; // Reset for the next question
     this.selectedOption = '';
     this.currentQuestionIndex++;
     if (this.currentQuestionIndex >= this.questions.length) {
@@ -99,6 +107,8 @@ export class LessonQuizComponent implements OnInit{
     this.quizFinished = false;
     this.currentQuestionIndex = 0;
     this.score = 0;
+    this.isSubmitted = false;
+    this.showFeedback = false;
   }
 
   backToLesson() {
